@@ -14,12 +14,12 @@
 //
 // The units are case-insensitive, and represent the following quantities:
 //        Base10           Base2
-//    k = 1000   = 10^3    1024    = 2^10
-//    m = 1000*k = 10^6    1024*ki = 2^20
-//    g = 1000*m = 10^9    1024*mi = 2^30
-//    t = 1000*g = 10^12   1024*gi = 2^40
-//    p = 1000*t = 10^15   1024*ti = 2^50
-//    e = 1000*p = 10^18   1024*pi = 2^60
+//    k = 1000   = 10^3    1024   = 2^10
+//    m = 1000*k = 10^6    1024*k = 2^20
+//    g = 1000*m = 10^9    1024*m = 2^30
+//    t = 1000*g = 10^12   1024*g = 2^40
+//    p = 1000*t = 10^15   1024*t = 2^50
+//    e = 1000*p = 10^18   1024*p = 2^60
 //
 // A number without a tag is interpreted as a number of units, e.g., 25.
 //
