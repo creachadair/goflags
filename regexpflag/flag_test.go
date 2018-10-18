@@ -1,4 +1,4 @@
-package reflag
+package regexpflag
 
 import (
 	"flag"
@@ -15,8 +15,8 @@ func TestFlagBits(t *testing.T) {
 	fs.Var(&match, "match", "Match expression")
 	fs.Var(&skip, "skip", "Skip expression")
 
-	if v := match.String(); v != Empty {
-		t.Errorf("Initial value for -match: got %q, want %q", v, Empty)
+	if v := match.String(); v != empty {
+		t.Errorf("Initial value for -match: got %q, want %q", v, empty)
 	}
 	if v := skip.String(); v != probe {
 		t.Errorf("Initial value for -skip: got %q, want %q", v, probe)

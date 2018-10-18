@@ -1,4 +1,4 @@
-package intsize
+package sizeflag
 
 import (
 	"bytes"
@@ -86,7 +86,7 @@ func TestRoundTrip(t *testing.T) {
 		3 * (tUnits / 4), 1*pUnits + 32*kUnits,
 	}
 	for _, v := range tests {
-		test := Flag(v)
+		test := New(v)
 		u := test.Unparse()
 		got, err := Parse(u)
 		if err != nil {
@@ -108,7 +108,7 @@ func TestFlagBits(t *testing.T) {
 	const countValue = 256
 	const initString = "1K"
 
-	size := Flag(1024)
+	size := New(1024)
 	if s := size.String(); s != initString {
 		t.Errorf("Size string: got %q, want %q", s, initString)
 	}
@@ -117,7 +117,7 @@ func TestFlagBits(t *testing.T) {
 	var buf bytes.Buffer
 	fs := flag.NewFlagSet("size", flag.PanicOnError)
 	fs.Var(size, "size", "The number of bytes to corrupt on disk")
-	fs.Var(Flag(&byteCount), "count", "The number of bytes that matter")
+	fs.Var(New(&byteCount), "count", "The number of bytes that matter")
 	fs.SetOutput(&buf)
 	fs.PrintDefaults()
 	t.Logf("Size flag set:\n%s", buf.String())
@@ -141,14 +141,14 @@ func TestFlagBits(t *testing.T) {
 	}
 }
 
-func ExampleFlag() {
-	size := Flag(nil)
+func ExampleNew() {
+	size := New(nil)
 	flag.Var(size, "size", "The size of the thing")
 
 	dim := 1024
-	flag.Var(Flag(&dim), "dim", "The dimension of the thing")
+	flag.Var(New(&dim), "dim", "The dimension of the thing")
 
-	mass := Flag(2000)
+	mass := New(2000)
 	flag.Var(mass, "mass", "The mass of the thing")
 
 	fmt.Printf("size %d %q\n", size.Int(), flag.Lookup("size").Value.String())

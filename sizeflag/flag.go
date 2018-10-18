@@ -1,7 +1,7 @@
-// Package intsize provides flag.Value implementation that supports a
+// Package sizeflag provides flag.Value implementation that supports a
 // convenient human-readable notation for integer sizes scaled by powers of
 // 1024.
-package intsize
+package sizeflag
 
 import (
 	"fmt"
@@ -33,12 +33,12 @@ func (v *Value) Set(s string) error {
 	return err
 }
 
-// Flag returns a *Value that satisfies the flag.Getter interface.  If v has
+// New returns a *Value that satisfies the flag.Getter interface.  If v has
 // type *int, it is converted and used as the flag location, with initial value
 // *v.  If v == nil or v has type int, a fresh location is allocated; in the
 // former case, the initial value is 0; in the latter it is v.  Any other value
-// will cause Flag to panic.
-func Flag(v interface{}) *Value {
+// will cause New to panic.
+func New(v interface{}) *Value {
 	switch t := v.(type) {
 	case nil:
 		return new(Value)

@@ -1,4 +1,4 @@
-// Package enum defines a flag.Value implementation that accepts one of a
+// Package enumflag defines a flag.Value implementation that accepts one of a
 // specified collection of string keys.  Values are compared without respect to
 // case, so that "foo" and "Foo" are accepted as equivalent to "FOO".
 //
@@ -15,7 +15,7 @@
 //     flag.Var(color, "color", color.Help("What color to paint the bikeshed"))
 //   }
 //
-package enum
+package enumflag
 
 import (
 	"fmt"
@@ -37,9 +37,9 @@ func (v Value) Help(h string) string {
 	return fmt.Sprintf("%s (%s)", h, strings.Join(v.keys, "|"))
 }
 
-// Flag returns a *Value for the specified enumerators, where defaultKey is the
+// New returns a *Value for the specified enumerators, where defaultKey is the
 // default value and otherKeys are additional options.
-func Flag(defaultKey string, otherKeys ...string) *Value {
+func New(defaultKey string, otherKeys ...string) *Value {
 	v := &Value{keys: append(otherKeys, defaultKey)}
 	sort.Strings(v.keys)
 	for i, key := range v.keys {

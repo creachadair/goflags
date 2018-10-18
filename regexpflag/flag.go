@@ -1,26 +1,26 @@
-// Package reflag implements a convenience wrapper for defining flags that
+// Package regexpflag implements a convenience wrapper for defining flags that
 // contain *regexp.Regexp values.
 //
 // Example:
 //  import (
 //    "flag"
 //
-//    "bitbucket.org/creachadair/goflags/reflag"
+//    "bitbucket.org/creachadair/goflags/regexpflag"
 //  )
 //
-//  var match reflag.Value
-//  var skip = reflag.MustCompile(`^\s+`)
+//  var match regexpflag.Value
+//  var skip = regexpflag.MustCompile(`^\s+`)
 //
 //  func init() {
 //    flag.Var(&match, "match", "Regular expression to match")
 //    flag.Var(&skip, "skip", "Regular expression to skip")
 //  }
 //
-package reflag
+package regexpflag
 
 import "regexp"
 
-const Empty = "ø"
+const empty = "ø"
 
 // A Value represents a regular expression.  The methods of the embedded
 // *regexp.Regexp are available directly.  A pointer to a Value satisfies the
@@ -34,7 +34,7 @@ func MustCompile(expr string) Value { return Value{regexp.MustCompile(expr)} }
 // String satisfies part of the flag.Value interface.
 func (v Value) String() string {
 	if v.Regexp == nil {
-		return Empty
+		return empty
 	}
 	return v.Regexp.String()
 }

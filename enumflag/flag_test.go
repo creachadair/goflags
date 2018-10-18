@@ -1,4 +1,4 @@
-package enum
+package enumflag
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ func newFlagSet(name string, w io.Writer) *flag.FlagSet {
 }
 
 func TestFlagBits(t *testing.T) {
-	color := Flag("red", "orange", "yellow", "green", "blue")
+	color := New("red", "orange", "yellow", "green", "blue")
 
 	const initial = "red"
 	const flagged = "green"
@@ -42,7 +42,7 @@ func TestFlagBits(t *testing.T) {
 		t.Errorf("Index for -color: got %d, want %d", idx, flaggedIndex)
 	}
 
-	taste := Flag("", "sweet", "sour")
+	taste := New("", "sweet", "sour")
 	fs = newFlagSet("taste", &buf)
 	fs.Var(taste, "taste", taste.Help("The flavour of the ice cream"))
 	fs.PrintDefaults()

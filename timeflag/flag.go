@@ -1,14 +1,14 @@
-// Package time defines a flag.Value implementation that parses time.Time
+// Package timeflag defines a flag.Value implementation that parses time.Time
 // values through a format string.
 //
 // Example:
 //   import (
 //     "flag"
 //
-//     "bitbucket.org/creachadair/goflags/time"
+//     "bitbucket.org/creachadair/goflags/timeflag"
 //   )
 //
-//   var dueDate = time.Value{
+//   var dueDate = timeflag.Value{
 //     Layout: "2006/01/02",
 //     Time:   time.Now().Add(24*time.Hour),
 //   }
@@ -16,7 +16,7 @@
 //     flag.Var(&dueDate, "due_date", dueDate.Help("When the work is due"))
 //   }
 //
-package time
+package timeflag
 
 import (
 	"fmt"
