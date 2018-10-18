@@ -150,8 +150,8 @@ func TestFlagBits(t *testing.T) {
 }
 
 func ExampleBase2() {
-	size := Base2(11)
-	flag.Var(size, "size", "The size of the thing")
+	var size Value2 = 11
+	flag.Var(&size, "size", "The size of the thing")
 
 	var dim = 1024
 	flag.Var(Base2(&dim), "dim", "The dimension of the thing")
