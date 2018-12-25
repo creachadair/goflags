@@ -19,7 +19,6 @@ package enumflag
 
 import (
 	"fmt"
-	"sort"
 	"strings"
 )
 
@@ -38,17 +37,15 @@ func (v Value) Help(h string) string {
 }
 
 // New returns a *Value for the specified enumerators, where defaultKey is the
-// default value and otherKeys are additional options.
+// default value and otherKeys are additional options. The index of a selected
+// key reflects its position in the order given to this function, so that if:
+//
+//     v := enumflag.New("a", "b", "c", "d")
+//
+// then the index of "a" is 0, "b" is 1, "c" is 2, "d" is 3. The default key is
+// always stored at index 0.
 func New(defaultKey string, otherKeys ...string) *Value {
-	v := &Value{keys: append(otherKeys, defaultKey)}
-	sort.Strings(v.keys)
-	for i, key := range v.keys {
-		if key == defaultKey {
-			v.index = i
-			break
-		}
-	}
-	return v
+	return &Value{keys: append([]string{defaultKey}, otherKeys...)}
 }
 
 // Key returns the currently-selected key in the enumeration.  The original
@@ -66,6 +63,8 @@ func (v Value) Key() string {
 func (v Value) Get() interface{} { return v.Key() }
 
 // Index returns the currently-selected index in the enumeration.
+// The order of keys reflects the original order in which they were passed to
+// the constructor, so index 0 is the default value.
 func (v Value) Index() int { return v.index }
 
 // String satisfies part of the flag.Value interface.

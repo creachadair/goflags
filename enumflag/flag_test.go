@@ -18,7 +18,7 @@ func TestFlagBits(t *testing.T) {
 
 	const initial = "red"
 	const flagged = "green"
-	const flaggedIndex = 1 // lexicographic order for "green"
+	const flaggedIndex = 3
 
 	var buf bytes.Buffer
 	fs := newFlagSet("color", &buf)
