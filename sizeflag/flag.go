@@ -137,7 +137,7 @@ func Base10(v interface{}) *Value10 {
 	}
 }
 
-var sizeRE = regexp.MustCompile(`^(?i)([0-9]+(?:\.[0-9]+)?)([bkmgtp])`)
+var sizeRE = regexp.MustCompile(`^(?i)([0-9]+(?:\.[0-9]+)?)([ekmgtp])`)
 
 const (
 	kd = 1000
