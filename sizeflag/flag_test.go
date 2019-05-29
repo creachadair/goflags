@@ -119,7 +119,6 @@ func TestRoundTrip(t *testing.T) {
 }
 
 func TestFlagBits(t *testing.T) {
-	const initial = 1024
 	const sizeValue = 32256
 	const countValue = 250
 	const initString = "1K"
