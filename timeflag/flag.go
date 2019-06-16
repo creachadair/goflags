@@ -5,7 +5,7 @@
 //   import (
 //     "flag"
 //
-//     "bitbucket.org/creachadair/goflags/timeflag"
+//     "github.com/creachadair/goflags/timeflag"
 //   )
 //
 //   var dueDate = timeflag.Value{

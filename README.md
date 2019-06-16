@@ -1,6 +1,6 @@
 # goflags
 
-http://godoc.org/bitbucket.org/creachadair/goflags
+http://godoc.org/github.com/creachadair/goflags
 
 The packages in this repository define extensions to the standard Go "flag"
 package for additional types beyond the standard set, by providing

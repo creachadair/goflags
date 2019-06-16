@@ -1,3 +1,3 @@
-module bitbucket.org/creachadair/goflags
+module github.com/creachadair/goflags
 
 go 1.12

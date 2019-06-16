@@ -6,7 +6,7 @@
 //   import (
 //     "flag"
 //
-//     "bitbucket.org/creachadair/goflags/enum"
+//     "github.com/creachadair/goflags/enum"
 //   )
 //
 //   // The first enumerated value is the default.

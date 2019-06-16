@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"bitbucket.org/creachadair/goflags/enumflag"
+	"github.com/creachadair/goflags/enumflag"
 )
 
 func Example() {

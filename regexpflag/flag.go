@@ -5,7 +5,7 @@
 //  import (
 //    "flag"
 //
-//    "bitbucket.org/creachadair/goflags/regexpflag"
+//    "github.com/creachadair/goflags/regexpflag"
 //  )
 //
 //  var match regexpflag.Value
