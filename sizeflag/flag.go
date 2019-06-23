@@ -67,7 +67,7 @@ func (v Value10) Get() interface{} { return int(v) }
 
 // Set sets the value of the flag from the specified string.
 func (v *Value2) Set(s string) error {
-	z, err := parse(s, units2)
+	z, err := Parse2(s)
 	if err == nil {
 		*v = Value2(z)
 	}
@@ -76,7 +76,7 @@ func (v *Value2) Set(s string) error {
 
 // Set sets the value of the flag from the specified string.
 func (v *Value10) Set(s string) error {
-	z, err := parse(s, units10)
+	z, err := Parse10(s)
 	if err == nil {
 		*v = Value10(z)
 	}
@@ -170,6 +170,14 @@ var (
 
 	// N.B. labels[0] is a sentinel.
 )
+
+// Parse2 parses a human-readable string defining a value with units scaled by
+// powers of 2.
+func Parse2(s string) (int64, error) { return parse(s, units2) }
+
+// Parse10 parses a human-readable string defining a value with units scaled by
+// powers of 10.
+func Parse10(s string) (int64, error) { return parse(s, units10) }
 
 // parse parses a human-readable string defining a number of units in the given
 // base, and returns the number of units so defined.
