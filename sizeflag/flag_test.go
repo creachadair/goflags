@@ -10,7 +10,7 @@ import (
 func TestSet(t *testing.T) {
 	tests := []struct {
 		in            string
-		want2, want10 int
+		want2, want10 int64
 	}{
 		{"0", 0, 0},
 		{"1", 1, 1},
@@ -55,7 +55,7 @@ func TestSet(t *testing.T) {
 			v := Base2(0)
 			if err := v.Set(test.in); err != nil {
 				t.Errorf("Set(%q) failed: %v", test.in, err)
-			} else if got := int(*v); got != test.want2 {
+			} else if got := int64(*v); got != test.want2 {
 				t.Errorf("Set(%q): got %d, want %d", test.in, got, test.want2)
 			}
 		})
@@ -63,7 +63,7 @@ func TestSet(t *testing.T) {
 			v := Base10(0)
 			if err := v.Set(test.in); err != nil {
 				t.Errorf("Set(%q) failed: %v", test.in, err)
-			} else if got := int(*v); got != test.want10 {
+			} else if got := int64(*v); got != test.want10 {
 				t.Errorf("Set(%q): got %d, want %d", test.in, got, test.want10)
 			}
 		})
@@ -127,7 +127,7 @@ func TestFlagBits(t *testing.T) {
 	if s := size.String(); s != initString {
 		t.Errorf("Initial -size string: got %q, want %q", s, initString)
 	}
-	var byteCount int
+	var byteCount int64
 
 	var buf bytes.Buffer
 	fs := flag.NewFlagSet("size", flag.PanicOnError)
@@ -160,7 +160,7 @@ func ExampleBase2() {
 	var size Value2 = 11
 	flag.Var(&size, "size", "The size of the thing")
 
-	var dim = 1024
+	var dim int64 = 1024
 	flag.Var(Base2(&dim), "dim", "The dimension of the thing")
 
 	mass := Base2(2000)

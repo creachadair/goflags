@@ -41,11 +41,11 @@ import (
 
 // A Value2 represents a flaggable integer value scaled by powers of 2.
 // A *Value2 satisfies the flag.Getter interface.
-type Value2 int
+type Value2 int64
 
 // A Value10 represents a flaggable integer value scaled by powers of 10.
 // A *Value10 satisfies the flag.Getter interface.
-type Value10 int
+type Value10 int64
 
 // Int returns the value of the flag as an int.
 func (v Value2) Int() int { return int(v) }
@@ -54,10 +54,10 @@ func (v Value2) Int() int { return int(v) }
 func (v Value10) Int() int { return int(v) }
 
 // String renders the current value of the flag as a string.
-func (v Value2) String() string { return unparse(int(v), 1024, mult2) }
+func (v Value2) String() string { return unparse(int64(v), 1024, mult2) }
 
 // String renders the current value of the flag as a string.
-func (v Value10) String() string { return unparse(int(v), 1000, mult10) }
+func (v Value10) String() string { return unparse(int64(v), 1000, mult10) }
 
 // Get retrieves the current value of the flag with concrete type int.
 func (v Value2) Get() interface{} { return int(v) }
@@ -85,14 +85,14 @@ func (v *Value10) Set(s string) error {
 
 // Base2 returns a *Value2 initialized by v.
 //
-// If v has type *int, the parsed value will be stored in *v, and the default
+// If v has type *int64, the parsed value will be stored in *v, and the default
 // flag value will be taken from *v.
 //
 // If v == nil the default flag value is 0 and a fresh location is allocated
 // and returned to receive the parsed value.
 //
-// If v has type int, the default flag value will be v, and a fresh location is
-// allocated and returned to receive the parsed value.
+// If v has type int or int64, the default flag value will be v, and a fresh
+// location is allocated and returned to receive the parsed value.
 //
 // Any other value will cause Base2 to panic.
 func Base2(v interface{}) *Value2 {
@@ -102,8 +102,11 @@ func Base2(v interface{}) *Value2 {
 	case *Value2:
 		return t
 	case int:
+		v := int64(t)
+		return (*Value2)(&v)
+	case int64:
 		return (*Value2)(&t)
-	case *int:
+	case *int64:
 		return (*Value2)(t)
 	default:
 		panic("invalid flag initializer")
@@ -112,14 +115,14 @@ func Base2(v interface{}) *Value2 {
 
 // Base10 returns a *Value10 initialized by v.
 //
-// If v has type *int, the parsed value will be stored in *v, and the default
+// If v has type *int64, the parsed value will be stored in *v, and the default
 // flag value will be taken from *v.
 //
 // If v == nil the default flag value is 0 and a fresh location is allocated
 // and returned to receive the parsed value.
 //
-// If v has type int, the default flag value will be v, and a fresh location is
-// allocated and returned to receive the parsed value.
+// If v has type int or int64, the default flag value will be v, and a fresh
+// location is allocated and returned to receive the parsed value.
 //
 // Any other value will cause Base10 to panic.
 func Base10(v interface{}) *Value10 {
@@ -129,8 +132,11 @@ func Base10(v interface{}) *Value10 {
 	case *Value10:
 		return t
 	case int:
+		v := int64(t)
+		return (*Value10)(&v)
+	case int64:
 		return (*Value10)(&t)
-	case *int:
+	case *int64:
 		return (*Value10)(t)
 	default:
 		panic("invalid flag initializer")
@@ -158,8 +164,8 @@ const (
 var (
 	units2  = map[string]float64{"k": ki, "m": mi, "g": gi, "t": ti, "p": pi, "e": ei}
 	units10 = map[string]float64{"k": kd, "m": md, "g": gd, "t": td, "p": pd, "e": ed}
-	mult2   = []int{ei, pi, ti, gi, mi, ki}              // descending order
-	mult10  = []int{ed, pd, td, gd, md, kd}              // descending order
+	mult2   = []int64{ei, pi, ti, gi, mi, ki}            // descending order
+	mult10  = []int64{ed, pd, td, gd, md, kd}            // descending order
 	labels  = []string{"", "E", "P", "T", "G", "M", "K"} // descending order
 
 	// N.B. labels[0] is a sentinel.
@@ -167,8 +173,8 @@ var (
 
 // parse parses a human-readable string defining a number of units in the given
 // base, and returns the number of units so defined.
-func parse(s string, unit map[string]float64) (int, error) {
-	var size int
+func parse(s string, unit map[string]float64) (int64, error) {
+	var size int64
 	var ok bool
 	for {
 		s = strings.TrimSpace(s)
@@ -186,12 +192,12 @@ func parse(s string, unit map[string]float64) (int, error) {
 		} else {
 			return size, fmt.Errorf("sizeflag: invalid unit %q", m[2])
 		}
-		size += int(v)
+		size += int64(v)
 		s = s[len(m[0]):]
 		ok = true
 	}
 	if s = strings.TrimSpace(s); s != "" {
-		v, err := strconv.Atoi(s)
+		v, err := strconv.ParseInt(s, 10, 64)
 		if err != nil {
 			return 0, fmt.Errorf("sizeflag: invalid size %q", s)
 		}
@@ -213,13 +219,13 @@ func parse(s string, unit map[string]float64) (int, error) {
 //    p, err := parse(unparse(n, multN))
 //
 // yields err == nil and p == n.
-func unparse(v int, pow int, mult []int) string {
+func unparse(v, pow int64, mult []int64) string {
 	type term struct {
-		n int
+		n int64
 		u string
 	}
 	var terms []term
-	add := func(n int, u, prev string, v int) int {
+	add := func(n int64, u, prev string, v int64) int64 {
 		// If the remaining value is zero and there is a previous term one place
 		// higher, lower the previous term by one place and combine them.
 		// For example, 1G+1M = 1025M with pow == 1024.
@@ -233,9 +239,9 @@ func unparse(v int, pow int, mult []int) string {
 		return v
 	}
 
-	z := int(v)
+	z := v
 	for i, div := range mult {
-		if n := int(z / div); n > 0 {
+		if n := z / div; n > 0 {
 			z = add(n, labels[i+1], labels[i], z%div)
 		}
 	}
