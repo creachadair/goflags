@@ -1,3 +1,3 @@
 module github.com/creachadair/goflags
 
-go 1.12
+go 1.17
