@@ -6,11 +6,11 @@
 //   import (
 //     "flag"
 //
-//     "github.com/creachadair/goflags/enum"
+//     "github.com/creachadair/goflags/enumflag"
 //   )
 //
 //   // The first enumerated value is the default.
-//   var color = enum.Flag("", "red", "orange", "yellow", "green", "blue")
+//   var color = enumflag.New("", "red", "orange", "yellow", "green", "blue")
 //   func init() {
 //     flag.Var(color, "color", color.Help("What color to paint the bikeshed"))
 //   }
@@ -49,8 +49,8 @@ func New(defaultKey string, otherKeys ...string) *Value {
 }
 
 // Key returns the currently-selected key in the enumeration.  The original
-// spelling of the selected value is returned, as given to the Flag
-// constructor, not the value as parsed.
+// spelling of the selected value is returned, as given to the constructor, not
+// the value as parsed.
 func (v Value) Key() string {
 	if len(v.keys) == 0 {
 		return "" // BUG: https://github.com/golang/go/issues/16694
