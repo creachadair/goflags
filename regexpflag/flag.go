@@ -2,20 +2,20 @@
 // contain *regexp.Regexp values.
 //
 // Example:
-//  import (
-//    "flag"
 //
-//    "github.com/creachadair/goflags/regexpflag"
-//  )
+//	import (
+//	  "flag"
 //
-//  var match regexpflag.Value
-//  var skip = regexpflag.MustCompile(`^\s+`)
+//	  "github.com/creachadair/goflags/regexpflag"
+//	)
 //
-//  func init() {
-//    flag.Var(&match, "match", "Regular expression to match")
-//    flag.Var(&skip, "skip", "Regular expression to skip")
-//  }
+//	var match regexpflag.Value
+//	var skip = regexpflag.MustCompile(`^\s+`)
 //
+//	func init() {
+//	  flag.Var(&match, "match", "Regular expression to match")
+//	  flag.Var(&skip, "skip", "Regular expression to skip")
+//	}
 package regexpflag
 
 import "regexp"

@@ -2,20 +2,20 @@
 // values through a format string.
 //
 // Example:
-//   import (
-//     "flag"
 //
-//     "github.com/creachadair/goflags/timeflag"
-//   )
+//	import (
+//	  "flag"
 //
-//   var dueDate = timeflag.Value{
-//     Layout: "2006/01/02",
-//     Time:   time.Now().Add(24*time.Hour),
-//   }
-//   func init() {
-//     flag.Var(&dueDate, "due_date", dueDate.Help("When the work is due"))
-//   }
+//	  "github.com/creachadair/goflags/timeflag"
+//	)
 //
+//	var dueDate = timeflag.Value{
+//	  Layout: "2006/01/02",
+//	  Time:   time.Now().Add(24*time.Hour),
+//	}
+//	func init() {
+//	  flag.Var(&dueDate, "due_date", dueDate.Help("When the work is due"))
+//	}
 package timeflag
 
 import (

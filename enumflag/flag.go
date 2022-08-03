@@ -3,18 +3,18 @@
 // case, so that "foo" and "Foo" are accepted as equivalent to "FOO".
 //
 // Example:
-//   import (
-//     "flag"
 //
-//     "github.com/creachadair/goflags/enumflag"
-//   )
+//	import (
+//	  "flag"
 //
-//   // The first enumerated value is the default.
-//   var color = enumflag.New("", "red", "orange", "yellow", "green", "blue")
-//   func init() {
-//     flag.Var(color, "color", color.Help("What color to paint the bikeshed"))
-//   }
+//	  "github.com/creachadair/goflags/enumflag"
+//	)
 //
+//	// The first enumerated value is the default.
+//	var color = enumflag.New("", "red", "orange", "yellow", "green", "blue")
+//	func init() {
+//	  flag.Var(color, "color", color.Help("What color to paint the bikeshed"))
+//	}
 package enumflag
 
 import (
@@ -40,7 +40,7 @@ func (v Value) Help(h string) string {
 // default value and otherKeys are additional options. The index of a selected
 // key reflects its position in the order given to this function, so that if:
 //
-//     v := enumflag.New("a", "b", "c", "d")
+//	v := enumflag.New("a", "b", "c", "d")
 //
 // then the index of "a" is 0, "b" is 1, "c" is 2, "d" is 3. The default key is
 // always stored at index 0.
