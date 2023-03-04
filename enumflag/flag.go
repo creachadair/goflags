@@ -60,7 +60,7 @@ func (v Value) Key() string {
 
 // Get satisfies the flag.Getter interface.
 // The concrete value is the the string of the current key.
-func (v Value) Get() interface{} { return v.Key() }
+func (v Value) Get() any { return v.Key() }
 
 // Index returns the currently-selected index in the enumeration.
 // The order of keys reflects the original order in which they were passed to

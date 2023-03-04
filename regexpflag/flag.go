@@ -51,4 +51,4 @@ func (v *Value) Set(s string) error {
 
 // Get satisfies the flag.Getter interface.
 // The concrete value has type *regexp.Regexp.
-func (v *Value) Get() interface{} { return v.Regexp }
+func (v *Value) Get() any { return v.Regexp }

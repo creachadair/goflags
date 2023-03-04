@@ -54,7 +54,7 @@ func (v *Value) Set(s string) error {
 
 // Get satisfies the flag.Getter interface.
 // The concrete value has type time.Time.
-func (v *Value) Get() interface{} { return v.Time }
+func (v *Value) Get() any { return v.Time }
 
 func parse(s string, format string) (time.Time, error) {
 	if format == "" {

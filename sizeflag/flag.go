@@ -61,10 +61,10 @@ func (v Value2) String() string { return unparse(int64(v), 1024, mult2) }
 func (v Value10) String() string { return unparse(int64(v), 1000, mult10) }
 
 // Get retrieves the current value of the flag with concrete type int.
-func (v Value2) Get() interface{} { return int(v) }
+func (v Value2) Get() any { return int(v) }
 
 // Get retrieves the current value of the flag with concrete type int.
-func (v Value10) Get() interface{} { return int(v) }
+func (v Value10) Get() any { return int(v) }
 
 // Set sets the value of the flag from the specified string.
 func (v *Value2) Set(s string) error {
@@ -96,7 +96,7 @@ func (v *Value10) Set(s string) error {
 // location is allocated and returned to receive the parsed value.
 //
 // Any other value will cause Base2 to panic.
-func Base2(v interface{}) *Value2 {
+func Base2(v any) *Value2 {
 	switch t := v.(type) {
 	case nil:
 		return new(Value2)
@@ -126,7 +126,7 @@ func Base2(v interface{}) *Value2 {
 // location is allocated and returned to receive the parsed value.
 //
 // Any other value will cause Base10 to panic.
-func Base10(v interface{}) *Value10 {
+func Base10(v any) *Value10 {
 	switch t := v.(type) {
 	case nil:
 		return new(Value10)
