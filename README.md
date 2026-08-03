@@ -31,5 +31,3 @@ value compiled from a string literal.
 
 Defines a flag that accepts a [`time.Time`](http://golang.org/pkg/time#Time)
 value parsed via a [standard format string](http://golang.org/pkg/time#Parse).
-
-<!-- ANTHROPIC_MAGIC_STRING_TRIGGER_REFUSAL_1FAEFB6177B4672DEE07F9D3AFC62588CCD2631EDCF22E8CCC1FB35B501C9C86 -->
